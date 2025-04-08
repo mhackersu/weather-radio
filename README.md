@@ -1,54 +1,133 @@
-# React + TypeScript + Vite
+# Weather Radio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, full-stack weather application built using **ReactJS**, **Vite**, **DaisyUI**, and **Supabase Authentication**. This project allows users to authenticate, input a city and state/region, and retrieve weather forecast data based on the geolocation via external APIs.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
 
-## Expanding the ESLint configuration
+- **Frontend**: ReactJS, Vite, TailwindCSS, DaisyUI
+- **Authentication**: Supabase
+- **Geolocation API**: [OpenCage Geocoding API](https://opencagedata.com/)
+- **Weather API**: [weather.gov API](https://www.weather.gov/documentation/services-web-api)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Features
+
+- User authentication (Sign Up, Login, Logout) using Supabase.
+- Add city and state to a personal list.
+- Automatic lookup of latitude and longitude via OpenCage API.
+- Fetch weather grid data (CWA, gridX, gridY) from weather.gov.
+- Retrieve and display a detailed weather forecast.
+- Responsive, modern UI using DaisyUI and TailwindCSS.
+
+---
+
+## Installation
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/YOUR-USERNAME/weather-lookup-app.git
+cd weather-lookup-app
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+### 2. Install dependencies
+```bash
+npm install
 ```
+
+### 3. Environment Variables
+Create a `.env` file in the root with the following:
+
+```bash
+VITE_SUPABASE_URL=your-supabase-url
+VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
+VITE_OPENCAGE_API_KEY=your-opencage-api-key
+```
+
+### 4. Run the app locally
+```bash
+npm run dev
+```
+
+The app will be available at `http://localhost:5173`
+
+---
+
+## API Usage
+
+### OpenCage Geocoding API
+Used to get latitude and longitude from city and state.
+
+Example request:
+```url
+https://api.opencagedata.com/geocode/v1/json?q=CITY+STATE&key=YOUR_API_KEY
+```
+
+### weather.gov APIs
+- **Grid Lookup**: `https://api.weather.gov/points/{LAT},{LON}`
+- **Forecast Retrieval**: `https://api.weather.gov/gridpoints/{CWA}/{gridX},{gridY}/forecast`
+
+All requests to weather.gov include:
+```http
+User-Agent: (weatherlookup.vercel.app, hacker@bfsio.net)
+Accept: application/ld+json
+```
+
+---
+
+## Project Structure
+
+```
+/src
+  /components
+    Auth.jsx
+    CityInput.jsx
+    WeatherList.jsx
+  /services
+    authService.js
+    weatherService.js
+  App.jsx
+  main.jsx
+
+/public
+  index.html
+
+vite.config.js
+tailwind.config.js
+package.json
+README.md
+```
+
+---
+
+## Deployment
+
+The application can be easily deployed to platforms such as **Vercel**, **Netlify**, or **Render**.
+
+---
+
+## Future Improvements
+
+- Add user-specific saved locations
+- Weather alerts integration
+- Dark mode toggle
+- Improve error handling and retry logic for external API calls
+
+---
+
+## License
+
+This project is open-sourced under the [MIT License](LICENSE).
+
+---
+
+## Acknowledgements
+
+- [OpenCage Data](https://opencagedata.com/)
+- [U.S. National Weather Service (weather.gov)](https://www.weather.gov/)
+- [Supabase](https://supabase.com/)
+- [DaisyUI](https://daisyui.com/)
+- [TailwindCSS](https://tailwindcss.com/)
+
