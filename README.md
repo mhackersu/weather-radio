@@ -82,31 +82,17 @@ Accept: application/ld+json
 ```
 /src
   /components
-    Auth.jsx
-    CityInput.jsx
-    WeatherList.jsx
+    weatherForm.tsx
   /services
-    authService.js
-    weatherService.js
-  App.jsx
-  main.jsx
-
-/public
-  index.html
-
-vite.config.js
-tailwind.config.js
-package.json
-README.md
+    weatherService.tsx
+  /hooks
+    useWeather.tsx
+  /pages
+    Home.tsx
 ```
 
 ---
 
-## Deployment
-
-The application can be easily deployed to platforms such as **Vercel**, **Netlify**, or **Render**.
-
----
 
 ## Future Improvements
 
